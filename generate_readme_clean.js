@@ -109,8 +109,10 @@ const sortedCategories = Object.keys(actorsByCategory).sort();
 const totalActors = actors.length - filteredCount;
 
 // Generate README content
-let content = `# 🚀 API Mega List\n\n`;
-content += `> **The most comprehensive collection of APIs on GitHub** - ${totalActors.toLocaleString()} ready-to-use APIs for building everything from simple automations to full-scale applications.\n\n`;
+let content = `<div align="center">\n\n`;
+content += `# 🚀 API Mega List\n\n`;
+content += `**The most comprehensive collection of APIs on GitHub** - ${totalActors.toLocaleString()} ready-to-use APIs for building everything from simple automations to full-scale applications.\n\n`;
+content += `</div>\n\n`;
 
 content += `---\n\n`;
 
@@ -121,11 +123,6 @@ content += `|--------|-------|\n`;
 content += `| **Total APIs** | **${totalActors.toLocaleString()}** |\n`;
 content += `| **Categories** | **${sortedCategories.length}** |\n`;
 content += `| **Last Updated** | ${new Date().toISOString().split('T')[0]} |\n\n`;
-
-content += `### 📁 Available Formats\n\n`;
-content += `- **[APIFY_ACTORS.md](APIFY_ACTORS.md)** - Complete markdown list (~8.3 MB)\n`;
-content += `- **[apify_actors.json](apify_actors.json)** - Full JSON dataset (~11.6 MB)\n`;
-content += `- **[apify_actors_simple.txt](apify_actors_simple.txt)** - Simple text format (~996 KB)\n\n`;
 
 content += `---\n\n`;
 
@@ -142,7 +139,7 @@ content += `## 📚 Table of Contents\n\n`;
 for (const category of sortedCategories) {
     const count = actorsByCategory[category].length;
     const { readable } = formatCategoryName(category);
-    const folderName = readable.toLowerCase().replace(/\s+/g, '-');
+    const folderName = `${readable.toLowerCase().replace(/\s+/g, '-')}-apis-${count}`;
     content += `- [${readable}](./${folderName}/) - ${count.toLocaleString()} APIs\n`;
 }
 
@@ -215,8 +212,8 @@ for (const category of sortedCategories) {
     const categoryActors = actorsByCategory[category];
     const { readable, anchor } = formatCategoryName(category);
     
-    // Create category folder name (lowercase, replace spaces with hyphens)
-    const folderName = readable.toLowerCase().replace(/\s+/g, '-');
+    // Create category folder name: category-apis-{count}
+    const folderName = `${readable.toLowerCase().replace(/\s+/g, '-')}-apis-${categoryActors.length}`;
     const categoryDir = path.join(process.cwd(), folderName);
     
     // Create category folder if it doesn't exist
