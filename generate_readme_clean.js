@@ -3,6 +3,7 @@
  */
 
 const fs = require('fs');
+const path = require('path');
 
 // Read the JSON file
 const actors = JSON.parse(fs.readFileSync('apify_actors.json', 'utf-8'));
@@ -152,15 +153,11 @@ content += `\n`;
 
 content += `---\n\n`;
 
-// Write categorized actors with better formatting
-for (const category of sortedCategories) {
-    const categoryActors = actorsByCategory[category];
-    const { readable, anchor } = formatCategoryName(category);
-    
-    content += `<a id="${anchor}"></a>\n\n`;
-    content += `## ${readable}\n\n`;
-    content += `<p align="right"><a href="#-table-of-contents">↑ Back to top</a></p>\n\n`;
-    content += `**${categoryActors.length.toLocaleString()} APIs in this category**\n\n`;
+// Helper function to generate category README content
+function generateCategoryReadme(categoryName, categoryActors, anchor) {
+    let categoryContent = `# ${categoryName}\n\n`;
+    categoryContent += `<p align="right"><a href="../README.md#-table-of-contents">← Back to main list</a></p>\n\n`;
+    categoryContent += `**${categoryActors.length.toLocaleString()} APIs in this category**\n\n`;
     
     // Sort actors by title
     const sortedActors = categoryActors.sort((a, b) => 
@@ -168,11 +165,85 @@ for (const category of sortedCategories) {
     );
     
     // Create table header
+    categoryContent += `| API Name | Description |\n`;
+    categoryContent += `|----------|-------------|\n`;
+    
+    // Add each actor as a table row
+    for (const actor of sortedActors) {
+        const title = actor.title || actor.name || 'Unknown';
+        const affiliateUrl = actor.affiliate_url || actor.url || '';
+        const description = actor.description || '';
+        
+        // Truncate descriptions at word boundaries
+        const maxDescLength = 200;
+        let shortDescription = description;
+        if (description.length > maxDescLength) {
+            let cutPoint = maxDescLength;
+            const lastSpace = description.lastIndexOf(' ', maxDescLength);
+            if (lastSpace > maxDescLength * 0.8) {
+                cutPoint = lastSpace;
+            }
+            shortDescription = description.substring(0, cutPoint).trim() + '...';
+        }
+        
+        // Clean up title - remove extra brackets if present
+        let cleanTitle = title;
+        if (cleanTitle.startsWith('[') && cleanTitle.includes(']')) {
+            cleanTitle = cleanTitle.replace(/^\[([^\]]+)\]\s*/, '$1 ');
+        }
+        
+        // Escape pipe characters and newlines for table format
+        cleanTitle = cleanTitle.replace(/\|/g, '&#124;').replace(/\n/g, ' ');
+        const safeDescription = (shortDescription || '').replace(/\|/g, '&#124;').replace(/\n/g, ' ');
+        
+        if (safeDescription) {
+            categoryContent += `| [${cleanTitle}](${affiliateUrl}) | ${safeDescription} |\n`;
+        } else {
+            categoryContent += `| [${cleanTitle}](${affiliateUrl}) | - |\n`;
+        }
+    }
+    
+    categoryContent += `\n---\n\n`;
+    categoryContent += `<p align="center"><a href="../README.md">← Back to main API list</a></p>\n`;
+    
+    return categoryContent;
+}
+
+// Write categorized actors with better formatting
+for (const category of sortedCategories) {
+    const categoryActors = actorsByCategory[category];
+    const { readable, anchor } = formatCategoryName(category);
+    
+    // Create category folder name (lowercase, replace spaces with hyphens)
+    const folderName = readable.toLowerCase().replace(/\s+/g, '-');
+    const categoryDir = path.join(process.cwd(), folderName);
+    
+    // Create category folder if it doesn't exist
+    if (!fs.existsSync(categoryDir)) {
+        fs.mkdirSync(categoryDir, { recursive: true });
+        console.log(`Created folder: ${folderName}/`);
+    }
+    
+    // Generate and write category README
+    const categoryReadme = generateCategoryReadme(readable, categoryActors, anchor);
+    const categoryReadmePath = path.join(categoryDir, 'README.md');
+    fs.writeFileSync(categoryReadmePath, categoryReadme, 'utf-8');
+    console.log(`Created ${folderName}/README.md`);
+    
+    // Add to main README with link to category folder
+    content += `<a id="${anchor}"></a>\n\n`;
+    content += `## ${readable}\n\n`;
+    content += `<p align="right"><a href="#-table-of-contents">↑ Back to top</a></p>\n\n`;
+    content += `**${categoryActors.length.toLocaleString()} APIs in this category** | [View all →](./${folderName}/)\n\n`;
+    
+    // Create table header
     content += `| API Name | Description |\n`;
     content += `|----------|-------------|\n`;
     
     // Add each actor as a table row
-    for (const actor of sortedActors) {
+    for (const actor of categoryActors.sort((a, b) => 
+        (a.title || a.name || '').localeCompare(b.title || b.name || '')
+    )) {
         const title = actor.title || actor.name || 'Unknown';
         const affiliateUrl = actor.affiliate_url || actor.url || '';
         const description = actor.description || '';
