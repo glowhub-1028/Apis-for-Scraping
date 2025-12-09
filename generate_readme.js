@@ -113,8 +113,8 @@ for (const category of sortedCategories) {
     const categoryActors = actorsByCategory[category];
     const { readable, anchor } = formatCategoryName(category);
     
-    // GitHub automatically creates anchors from headers
-    // Format: lowercase, spaces become hyphens
+    // Add explicit HTML anchor for reliable navigation
+    content += `<a id="${anchor}"></a>\n\n`;
     content += `## ${readable}\n\n`;
     content += `*${categoryActors.length.toLocaleString()} APIs*\n\n`;
     
@@ -128,11 +128,17 @@ for (const category of sortedCategories) {
         const affiliateUrl = actor.affiliate_url || actor.url || '';
         const description = actor.description || '';
         
-        // Truncate long descriptions for readability
+        // Truncate long descriptions for readability, but cut at word boundaries
         const maxDescLength = 200;
         let shortDescription = description;
         if (description.length > maxDescLength) {
-            shortDescription = description.substring(0, maxDescLength).trim() + '...';
+            // Find the last space before the max length to avoid cutting words
+            let cutPoint = maxDescLength;
+            const lastSpace = description.lastIndexOf(' ', maxDescLength);
+            if (lastSpace > maxDescLength * 0.8) { // Only use word boundary if it's not too far back
+                cutPoint = lastSpace;
+            }
+            shortDescription = description.substring(0, cutPoint).trim() + '...';
         }
         
         if (shortDescription) {
@@ -146,6 +152,7 @@ for (const category of sortedCategories) {
 
 // Write uncategorized actors
 if (uncategorized.length > 0) {
+    content += `<a id="uncategorized"></a>\n\n`;
     content += `## Uncategorized\n\n`;
     content += `*${uncategorized.length.toLocaleString()} APIs*\n\n`;
     
@@ -158,10 +165,17 @@ if (uncategorized.length > 0) {
         const affiliateUrl = actor.affiliate_url || actor.url || '';
         const description = actor.description || '';
         
+        // Truncate long descriptions for readability, but cut at word boundaries
         const maxDescLength = 200;
         let shortDescription = description;
         if (description.length > maxDescLength) {
-            shortDescription = description.substring(0, maxDescLength).trim() + '...';
+            // Find the last space before the max length to avoid cutting words
+            let cutPoint = maxDescLength;
+            const lastSpace = description.lastIndexOf(' ', maxDescLength);
+            if (lastSpace > maxDescLength * 0.8) { // Only use word boundary if it's not too far back
+                cutPoint = lastSpace;
+            }
+            shortDescription = description.substring(0, cutPoint).trim() + '...';
         }
         
         if (shortDescription) {
