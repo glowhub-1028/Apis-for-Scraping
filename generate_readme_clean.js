@@ -141,8 +141,9 @@ content += `## 📚 Table of Contents\n\n`;
 
 for (const category of sortedCategories) {
     const count = actorsByCategory[category].length;
-    const { anchor, readable } = formatCategoryName(category);
-    content += `- [${readable}](#${anchor}) - ${count.toLocaleString()} APIs\n`;
+    const { readable } = formatCategoryName(category);
+    const folderName = readable.toLowerCase().replace(/\s+/g, '-');
+    content += `- [${readable}](./${folderName}/) - ${count.toLocaleString()} APIs\n`;
 }
 
 if (uncategorized.length > 0) {
