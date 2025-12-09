@@ -5,6 +5,7 @@
 
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 
 const API_BASE_URL = 'api.apify.com';
 const AFFILIATE_PARAM = '?fpr=p2hrc6';
@@ -136,7 +137,8 @@ async function fetchAllActors(limit = 100) {
  * Save actors data to JSON file
  */
 function saveToJSON(actors, filename = 'apify_actors.json') {
-    fs.writeFileSync(filename, JSON.stringify(actors, null, 2), 'utf-8');
+    const filePath = path.join(__dirname, '..', filename);
+    fs.writeFileSync(filePath, JSON.stringify(actors, null, 2), 'utf-8');
     console.log(`Saved ${actors.length} actors to ${filename}`);
 }
 
@@ -213,7 +215,8 @@ function generateMarkdownList(actors, filename = 'APIFY_ACTORS.md') {
     content += `*Total: ${actors.length} Actors*\n`;
     content += `*Last updated: ${new Date().toISOString().split('T')[0]} ${new Date().toTimeString().split(' ')[0]}*\n`;
 
-    fs.writeFileSync(filename, content, 'utf-8');
+    const filePath = path.join(__dirname, '..', filename);
+    fs.writeFileSync(filePath, content, 'utf-8');
     console.log(`Generated markdown list: ${filename}`);
 }
 
@@ -231,7 +234,8 @@ function generateSimpleList(actors, filename = 'apify_actors_simple.txt') {
         return `${title}|${affiliateUrl}`;
     });
 
-    fs.writeFileSync(filename, lines.join('\n'), 'utf-8');
+    const filePath = path.join(__dirname, '..', filename);
+    fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
     console.log(`Generated simple list: ${filename}`);
 }
 

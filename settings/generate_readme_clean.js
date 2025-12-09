@@ -5,8 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// Read the JSON file
-const actors = JSON.parse(fs.readFileSync('apify_actors.json', 'utf-8'));
+// Read the JSON file (look in parent directory)
+const jsonPath = path.join(__dirname, '..', 'apify_actors.json');
+const actors = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
 console.log(`Processing ${actors.length} actors...`);
 console.log(`Filtering out test/placeholder actors...`);
@@ -377,8 +378,9 @@ content += `**Last Updated: ${new Date().toISOString().split('T')[0]}**\n\n`;
 content += `*One of the most valuable API lists on GitHub—period.* 💪\n\n`;
 content += `</div>\n`;
 
-// Write to README.md
-fs.writeFileSync('README.md', content, 'utf-8');
+// Write to README.md (in parent directory)
+const readmePath = path.join(__dirname, '..', 'README.md');
+fs.writeFileSync(readmePath, content, 'utf-8');
 console.log(`✅ Clean README.md generated successfully!`);
 console.log(`   - ${sortedCategories.length} categories`);
 console.log(`   - ${(actors.length - filteredCount).toLocaleString()} total APIs (${filteredCount} filtered out)`);
