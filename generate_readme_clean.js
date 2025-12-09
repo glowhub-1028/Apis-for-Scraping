@@ -117,12 +117,14 @@ content += `</div>\n\n`;
 content += `---\n\n`;
 
 // Statistics section with badges
+content += `<div align="center">\n\n`;
 content += `## 📊 Collection Statistics\n\n`;
 content += `| Metric | Count |\n`;
 content += `|--------|-------|\n`;
 content += `| **Total APIs** | **${totalActors.toLocaleString()}** |\n`;
 content += `| **Categories** | **${sortedCategories.length}** |\n`;
 content += `| **Last Updated** | ${new Date().toISOString().split('T')[0]} |\n\n`;
+content += `</div>\n\n`;
 
 content += `---\n\n`;
 
@@ -155,6 +157,7 @@ content += `---\n\n`;
 function generateCategoryReadme(categoryName, categoryActors, anchor) {
     let categoryContent = `# ${categoryName}\n\n`;
     categoryContent += `<p align="right"><a href="../README.md#-table-of-contents">← Back to main list</a></p>\n\n`;
+    categoryContent += `**Organized APIs by Category**\n\n`;
     categoryContent += `**${categoryActors.length.toLocaleString()} APIs in this category**\n\n`;
     
     // Sort actors by title

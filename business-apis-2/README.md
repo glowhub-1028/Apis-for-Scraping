@@ -2,6 +2,8 @@
 
 <p align="right"><a href="../README.md#-table-of-contents">← Back to main list</a></p>
 
+**Organized APIs by Category**
+
 **2 APIs in this category**
 
 | API Name | Description |
