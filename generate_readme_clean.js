@@ -128,10 +128,20 @@ content += `</div>\n\n`;
 
 content += `---\n\n`;
 
-// What are Apify Actors section
-content += `## 🤔 What are Apify Actors?\n\n`;
-content += `Apify Actors are pre-built web scraping and automation tools that can extract data from websites, automate workflows, and integrate with AI applications. Each actor is a ready-to-use API that you can run via the Apify platform.\n\n`;
-content += `**All links in this collection include affiliate tracking** (\`?fpr=p2hrc6\`) - clicking any API link supports this project! 🎉\n\n`;
+// What are these APIs section
+content += `## 🤔 What Can You Build?\n\n`;
+content += `This collection contains **${totalActors.toLocaleString()} ready-to-use APIs** that you can integrate directly into your applications. Whether you're building web scrapers, automating workflows, processing data, or creating AI-powered tools, these APIs provide the building blocks you need.\n\n`;
+content += `**The possibilities are endless:**\n\n`;
+content += `- 🔍 **Data Collection** - Extract information from websites, social media, e-commerce platforms, and more\n`;
+content += `- 🤖 **Automation** - Automate repetitive tasks, workflows, and business processes\n`;
+content += `- 📊 **Analytics & Insights** - Gather market intelligence, competitor data, and business metrics\n`;
+content += `- 🎯 **Lead Generation** - Find contacts, emails, and business opportunities\n`;
+content += `- 🛒 **E-commerce Tools** - Monitor prices, track products, analyze market trends\n`;
+content += `- 📱 **Social Media** - Scrape posts, analyze engagement, track trends\n`;
+content += `- 🏠 **Real Estate** - Extract property listings, market data, and investment opportunities\n`;
+content += `- 💼 **Job Market** - Aggregate job listings, analyze salaries, track opportunities\n`;
+content += `- 🚀 **AI Integration** - Connect with AI models, process content, generate insights\n\n`;
+content += `**Each API is production-ready** - simply integrate it into your application and start building. No need to build scrapers from scratch or maintain complex infrastructure. Focus on what matters: creating amazing applications that solve real problems.\n\n`;
 
 content += `---\n\n`;
 
