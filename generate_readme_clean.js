@@ -157,6 +157,7 @@ for (const category of sortedCategories) {
     const categoryActors = actorsByCategory[category];
     const { readable, anchor } = formatCategoryName(category);
     
+    content += `<a id="${anchor}"></a>\n\n`;
     content += `## ${readable}\n\n`;
     content += `<p align="right"><a href="#-table-of-contents">↑ Back to top</a></p>\n\n`;
     content += `**${categoryActors.length.toLocaleString()} APIs in this category**\n\n`;
@@ -206,6 +207,7 @@ for (const category of sortedCategories) {
 
 // Write uncategorized actors
 if (uncategorized.length > 0) {
+    content += `<a id="uncategorized"></a>\n\n`;
     content += `## Uncategorized\n\n`;
     content += `<p align="right"><a href="#-table-of-contents">↑ Back to top</a></p>\n\n`;
     content += `**${uncategorized.length.toLocaleString()} APIs in this category**\n\n`;
