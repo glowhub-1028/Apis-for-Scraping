@@ -1,8 +1,8 @@
 <div align="center">
 
 # 🚀 Scraping APIs for Developers
-
-<img src="https://firebasestorage.googleapis.com/v0/b/facesift.firebasestorage.app/o/user_uploads%2F83EXwNWgaKe1BHmyd9ISw3HCEfi2%2F1765473796924-Generated%20Image%20December%2011%2C%202025%20-%2012_22PM.jpeg?alt=media&token=54567351-07bc-4172-9b10-00ab36ba8918" alt="Scraping APIs for Developers" style="max-width: 100%; height: auto;">
+<!-- 
+<img src="https://firebasestorage.googleapis.com/v0/b/facesift.firebasestorage.app/o/user_uploads%2F83EXwNWgaKe1BHmyd9ISw3HCEfi2%2F1765473796924-Generated%20Image%20December%2011%2C%202025%20-%2012_22PM.jpeg?alt=media&token=54567351-07bc-4172-9b10-00ab36ba8918" alt="Scraping APIs for Developers" style="max-width: 100%; height: auto;"> -->
 
 **The most comprehensive collection of scraping APIs on GitHub** - 2,622 ready-to-use scraping APIs for extracting data from websites, social media, e-commerce platforms, and more.
 
