@@ -23,7 +23,7 @@
 
 *Your support helps others discover this valuable resource and keeps me motivated to maintain and update it regularly.*
 
-<a href="https://github.com/cporter202/scraping-apis-for-devs/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/cporter202/scraping-apis-for-devs?style=for-the-badge&logo=github&color=yellow&label=Stars" alt="GitHub Stars"></a>
+<a href="https://github.com/glowhub-1028/Apis-for-Scraping/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/glowhub-1028/Apis-for-Scraping?style=for-the-badge&logo=github&color=yellow&label=Stars" alt="GitHub Stars"></a>
 
 ---
 
